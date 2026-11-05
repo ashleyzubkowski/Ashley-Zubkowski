@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ashley Zubkowski · Journal</title>
+<meta name="description" content="Ashley Zubkowski, PhD student in Physiology, Development & Neuroscience at the University of Cambridge.">
+<meta name="theme-color" content="#F5F0E6">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%235B2A6E'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-style='italic' font-size='30' fill='%23F5F0E6' text-anchor='middle'%3EAZ%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F5F0E6;
+    --paper-2: #ECE4D4;
+    --ink: #1F1A22;
+    --muted: #675E6C;
+    --rule: #D6CBB8;
+    --plum: #5B2A6E;
+    --plum-deep: #2E1238;
+    --lilac: #D7BFE2;
+    --cream: #F5F0E6;
+    --cream-muted: #C9BDCB;
+    --mark: #EADCF0;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif; font-size: 19px; line-height: 1.6;
+    font-variant-numeric: oldstyle-nums; -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  a:focus-visible { outline: 2px solid var(--plum); outline-offset: 3px; border-radius: 2px; }
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+  .caps { text-transform: uppercase; letter-spacing: 0.22em; font-size: 12.5px; font-weight: 500; }
+
+  /* Running head: slides in once the cover has scrolled away */
+  .running {
+    position: fixed; inset: 0 0 auto; z-index: 15;
+    background: rgba(245, 240, 230, 0.96); backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--ink); box-shadow: 0 1px 0 var(--paper), 0 2px 0 var(--ink);
+    transform: translateY(-110%); transition: transform .3s ease;
+  }
+  .running.show { transform: none; }
+  .running .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 52px; }
+  .running .name { font-family: "Cormorant Garamond", serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 17px; text-decoration: none; white-space: nowrap; }
+  .running .name span { font-family: "EB Garamond", serif; font-weight: 400; font-style: italic; text-transform: none; letter-spacing: 0; color: var(--muted); font-size: 15px; margin-left: 10px; }
+  .running nav { display: flex; gap: 22px; }
+  .running nav a { text-decoration: none; font-variant: small-caps; letter-spacing: 0.1em; font-size: 15.5px; color: var(--muted); white-space: nowrap; }
+  .running nav a i { font-family: "Cormorant Garamond", serif; font-variant: normal; letter-spacing: 0; color: var(--plum); margin-right: 4px; }
+  .running nav a:hover, .running nav a.on { color: var(--ink); }
+  .running nav a.on { box-shadow: 0 2px 0 var(--plum); }
+  .running .contents { display: none; }
+
+  /* Cover */
+  .cover { min-height: 100vh; padding: 18px; display: flex; }
+  .frame {
+    flex: 1; display: flex; flex-direction: column;
+    border: 1px solid var(--ink); outline: 1px solid var(--ink); outline-offset: 5px;
+    margin: 6px; padding: 0 40px;
+  }
+  .runner { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0 12px; border-bottom: 1px solid var(--ink); white-space: nowrap; }
+  @media (max-width: 1080px) { .runner .hide-sm { display: none; } }
+  .masthead { text-align: center; padding: 24px 0 16px; border-bottom: 3px double var(--ink); }
+  .masthead h1 {
+    margin: 0; font-family: "Cormorant Garamond", serif; font-weight: 700; text-transform: uppercase;
+    font-size: clamp(42px, 7.6vw, 108px); line-height: 0.92; letter-spacing: 0.04em;
+  }
+  .masthead p { margin: 10px 0 0; font-style: italic; font-size: 21px; color: var(--plum); }
+
+  .cover-body { flex: 1; display: grid; grid-template-columns: 1fr 1.05fr; gap: 48px; padding: 28px 0 26px; align-items: stretch; }
+  .cover-left { display: flex; flex-direction: column; }
+  .latest { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--ink); text-decoration: none; display: block; }
+  .latest .caps { display: block; color: var(--plum); font-size: 11.5px; }
+  .latest .lt { display: block; margin-top: 6px; font-family: "Cormorant Garamond", serif; font-weight: 600; font-size: 22px; line-height: 1.2; }
+  .latest .lj { display: block; margin-top: 4px; font-size: 16px; color: var(--muted); }
+  .latest:hover .lt { color: var(--plum); }
+  .byline { margin: 0; padding-bottom: 18px; border-bottom: 1px solid var(--rule); font-size: 17.5px; line-height: 1.45; color: var(--muted); }
+  .byline b { display: block; margin-bottom: 2px; color: var(--ink); font-weight: 600; font-size: 19px; }
+
+  .toc-title { margin: 20px 0 6px; color: var(--plum); }
+  .toc { list-style: none; margin: 0; padding: 0; }
+  .toc a { display: flex; align-items: baseline; gap: 10px; padding: 6px 0; text-decoration: none; }
+  .toc a:hover .t { color: var(--plum); }
+  .toc .n { width: 34px; flex: none; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 20px; color: var(--plum); }
+  .toc .t { font-size: 19px; }
+  .toc .dots { flex: 1; min-width: 16px; border-bottom: 1px dotted #A99D8C; transform: translateY(-5px); }
+  .toc .pg { font-style: italic; color: var(--muted); font-size: 16px; }
+
+  /* Cover story: the portrait and the PhD question, in a framed panel */
+  .feature {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    border: 1px solid var(--ink); background: var(--paper-2); padding: 30px 32px;
+    box-shadow: inset 0 0 0 6px var(--paper-2), inset 0 0 0 7px var(--rule);
+  }
+  .portrait {
+    width: clamp(170px, 18vw, 236px); aspect-ratio: 1; border-radius: 50%; flex: none;
+    background: radial-gradient(circle at 50% 38%, #F3EAF4 0%, #E2D1E6 70%, #D6C1DC 100%);
+    box-shadow: 0 0 0 1px var(--plum), 0 0 0 7px var(--paper-2), 0 0 0 8px var(--plum);
+    display: grid; place-items: center;
+    font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 500; font-size: clamp(54px, 6vw, 76px); color: var(--plum);
+  }
+  .feature .kicker { margin: 30px 0 8px; color: var(--plum); }
+  .feature h2 {
+    margin: 0; max-width: 20ch; font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 600;
+    font-size: clamp(26px, 2.5vw, 34px); line-height: 1.15;
+  }
+  .feature p.dek { margin: 12px 0 0; max-width: 38ch; font-size: 16.5px; line-height: 1.45; color: var(--muted); }
+  .feature p.dek a { color: var(--plum); white-space: nowrap; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+
+  /* Affiliations strip */
+  .strip { border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); background: var(--paper); }
+  .strip .wrap { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .strip .cell { padding: 18px 0 16px; }
+  .strip .cell + .cell { padding-left: 24px; border-left: 1px solid var(--rule); }
+  .strip .caps { display: block; color: var(--plum); font-size: 11.5px; }
+  .strip .v { display: block; margin-top: 3px; font-family: "Cormorant Garamond", serif; font-weight: 600; font-size: 21px; line-height: 1.25; }
+  .strip a { text-decoration: none; }
+  .strip a:hover { color: var(--plum); }
+
+  /* Sections */
+  section { padding: 104px 0; }
+  .sec-head { display: flex; align-items: baseline; gap: 18px; margin-bottom: 36px; padding-bottom: 14px; border-bottom: 1px solid var(--ink); }
+  .sec-head .n { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 30px; color: var(--plum); }
+  .sec-head h2 { margin: 0; font-family: "Cormorant Garamond", serif; font-weight: 600; font-size: clamp(36px, 4.8vw, 54px); line-height: 1; }
+  .sec-head .aside { margin-left: auto; font-style: italic; color: var(--muted); font-size: 17px; }
+  .sec-head .aside a { color: var(--plum); }
+
+  /* Biography with margin notes */
+  .bio-grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 64px; }
+  .bio { max-width: 64ch; }
+  .bio p { margin: 0 0 16px; }
+  .bio p:first-child::first-letter {
+    float: left; font-family: "Cormorant Garamond", serif; font-weight: 600; font-size: 5.1em; line-height: 0.8;
+    padding: 8px 10px 0 0; color: var(--plum);
+  }
+  .bio a { color: var(--plum); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  sup.fn { font-size: 0.66em; line-height: 0; margin-left: 1px; }
+  sup.fn a { text-decoration: none; font-variant-numeric: lining-nums; font-weight: 600; padding: 0 1px; }
+  .sig { margin-top: 18px; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 22px; color: var(--plum); }
+  .notes { list-style: none; margin: 0; padding: 4px 0 0 24px; border-left: 1px solid var(--rule); counter-reset: note; font-size: 15.5px; line-height: 1.45; color: var(--muted); }
+  .notes-title { display: block; margin-bottom: 12px; color: var(--plum); }
+  .notes li { counter-increment: note; position: relative; padding-left: 22px; margin-bottom: 14px; border-radius: 3px; }
+  .notes li::before { content: counter(note); position: absolute; left: 0; top: 0; font-weight: 600; color: var(--plum); font-variant-numeric: lining-nums; }
+  .notes a { color: var(--plum); }
+  .notes li:target, .refs li:target { animation: mark 2.4s ease-out; }
+  @keyframes mark { 0%, 40% { background: var(--mark); box-shadow: 0 0 0 6px var(--mark); } 100% { background: transparent; box-shadow: 0 0 0 6px transparent; } }
+
+  /* Research as abstracts */
+  .research { background: var(--plum-deep); color: var(--cream); }
+  .research .sec-head { border-bottom-color: rgba(245, 240, 230, 0.5); }
+  .research .sec-head .n { color: var(--lilac); }
+  .research .sec-head .aside { color: var(--cream-muted); }
+  .abstracts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; }
+  .abstract { padding: 30px 34px 32px 0; border-bottom: 1px solid rgba(245, 240, 230, 0.18); }
+  .abstract:nth-child(even) { padding: 30px 0 32px 34px; border-left: 1px solid rgba(245, 240, 230, 0.18); }
+  .abstract:nth-last-child(-n+2) { border-bottom: 0; }
+  .abstract .caps { color: var(--lilac); font-size: 11.5px; }
+  .abstract h3 { margin: 8px 0 10px; font-family: "Cormorant Garamond", serif; font-weight: 600; font-size: 29px; line-height: 1.12; }
+  .abstract p { margin: 0; color: var(--cream-muted); }
+  .abstract .kw { margin-top: 12px; font-size: 16px; font-style: italic; color: #B6A7BA; }
+  .abstract .kw b { font-style: normal; font-variant: small-caps; letter-spacing: 0.08em; color: var(--cream); font-weight: 500; }
+  .abstract .see { display: inline-block; margin-top: 10px; font-variant: small-caps; letter-spacing: 0.1em; font-size: 15px; color: var(--lilac); text-decoration: none; border-bottom: 1px solid rgba(215, 191, 226, 0.4); }
+  .abstract .see:hover { border-bottom-color: var(--lilac); }
+  .abstract .see.muted { color: var(--cream-muted); border-bottom: 0; font-style: italic; font-variant: normal; letter-spacing: 0; font-size: 16px; }
+  .research a:focus-visible, footer.corr a:focus-visible { outline-color: var(--lilac); }
+
+  /* References */
+  .refs { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); column-gap: 48px; counter-reset: ref; }
+  .refs li { counter-increment: ref; position: relative; padding: 18px 0 18px 46px; border-bottom: 1px solid var(--rule); font-size: 17.5px; line-height: 1.5; border-radius: 3px; }
+  .refs li::before { content: counter(ref) "."; position: absolute; left: 0; top: 16px; font-family: "Cormorant Garamond", serif; font-weight: 600; font-size: 24px; color: var(--plum); font-variant-numeric: lining-nums; }
+  .refs .t { display: block; font-family: "Cormorant Garamond", serif; font-weight: 600; font-size: 22px; line-height: 1.2; margin-bottom: 4px; }
+  .refs .me { font-weight: 600; }
+  .refs .au { color: var(--muted); }
+  .refs .j { font-style: italic; }
+  .refs .links { display: block; margin-top: 6px; font-variant: small-caps; letter-spacing: 0.1em; font-size: 15px; }
+  .refs .links a { color: var(--plum); text-decoration: none; margin-right: 16px; border-bottom: 1px solid rgba(91, 42, 110, 0.35); }
+  .refs .links a:hover { border-bottom-color: var(--plum); }
+  .refs .tag { font-variant: small-caps; letter-spacing: 0.1em; font-size: 14px; color: var(--plum); margin-left: 4px; }
+  .refs .refs-sub { grid-column: 1 / -1; padding: 28px 0 4px; border-bottom: 0; counter-increment: none; color: var(--plum); }
+  .refs .refs-sub::before { content: none; }
+  .refs .refs-sub:first-child { padding-top: 0; }
+
+  /* CV and the river note */
+  .cv-wrap { background: var(--paper-2); border-top: 1px solid var(--rule); }
+  .cv-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 56px; align-items: start; }
+  .cv { list-style: none; margin: 0; padding: 0; }
+  .cv li { display: grid; grid-template-columns: 130px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+  .cv li:first-child { padding-top: 0; }
+  .cv .yr { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 21px; color: var(--plum); }
+  .cv b { display: block; font-weight: 600; }
+  .cv .w { color: var(--muted); font-size: 17px; }
+
+  .note { border: 3px double var(--ink); padding: 26px 26px 24px; background: var(--paper); }
+  .note .caps { color: var(--plum); }
+  .note h3 { margin: 6px 0 12px; font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 600; font-size: 30px; line-height: 1.1; }
+  .note svg { display: block; width: 100%; height: auto; margin: 4px 0 14px; }
+  .note p { margin: 0; font-size: 17.5px; }
+  .note a { color: var(--plum); }
+
+  /* Correspondence */
+  footer.corr { background: var(--plum-deep); color: var(--cream); padding: 96px 0 36px; }
+  footer.corr .sec-head { border-bottom-color: rgba(245, 240, 230, 0.5); }
+  footer.corr .sec-head .n { color: var(--lilac); }
+  .corr-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; }
+  .corr-grid p { margin: 0 0 14px; color: var(--cream-muted); }
+  .email { display: inline-block; margin-top: 6px; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: clamp(28px, 3.6vw, 40px); color: #E6D3EE; text-decoration: none; border-bottom: 1px solid rgba(215, 191, 226, 0.5); }
+  .email .ph { opacity: 0.55; }
+  .addr { color: var(--cream-muted); }
+  .addr .caps { display: block; color: var(--lilac); margin-bottom: 6px; }
+  .flinks { margin-top: 18px; font-variant: small-caps; letter-spacing: 0.1em; }
+  .flinks a { color: var(--cream); text-decoration: none; margin-right: 18px; border-bottom: 1px solid rgba(215, 191, 226, 0.4); }
+  .flinks a:hover { border-bottom-color: var(--lilac); }
+  .colophon { margin-top: 72px; padding-top: 18px; border-top: 1px solid rgba(245, 240, 230, 0.25); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 15px; font-style: italic; color: var(--cream-muted); }
+  .colophon a { color: var(--cream-muted); }
+
+  .mockup-tag {
+    position: fixed; right: 16px; bottom: 16px; z-index: 20; text-decoration: none;
+    font: 13px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--ink); color: #fff; padding: 9px 12px; border-radius: 999px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  }
+
+  @media (max-width: 1080px) {
+    .running nav a i { display: none; }
+    .running nav { gap: 16px; }
+    .running .name span { display: none; }
+    .bio-grid { grid-template-columns: minmax(0, 1fr) 250px; gap: 40px; }
+  }
+  @media (max-width: 860px) {
+    body { font-size: 18px; }
+    html { scroll-padding-top: 60px; }
+    .wrap { padding: 0 16px; }
+    .running .wrap { height: 48px; }
+    .running nav { display: none; }
+    .running .contents { display: block; font-variant: small-caps; letter-spacing: 0.1em; font-size: 15px; color: var(--plum); text-decoration: none; }
+    .cover { padding: 10px; }
+    .frame { margin: 5px; padding: 0 16px; }
+    .runner { white-space: normal; flex-wrap: wrap; letter-spacing: 0.16em; font-size: 11px; }
+    .masthead { padding: 22px 0 16px; }
+    .masthead h1 { font-size: clamp(30px, 10.5vw, 64px); letter-spacing: 0.02em; }
+    .masthead p { font-size: 18px; }
+    .toc .pg { display: none; }
+    .cover-body { grid-template-columns: 1fr; gap: 32px; padding-top: 24px; }
+    .feature { order: -1; padding: 28px 18px; }
+    .latest { margin-top: 24px; }
+    .strip .wrap { grid-template-columns: repeat(2, 1fr); }
+    .strip .cell:nth-child(3) { padding-left: 0; border-left: 0; }
+    .strip .cell:nth-child(n+3) { border-top: 1px solid var(--rule); }
+    section { padding: 64px 0; }
+    .sec-head { flex-wrap: wrap; gap: 4px 14px; }
+    .sec-head .aside { margin-left: 0; width: 100%; }
+    .bio-grid { grid-template-columns: 1fr; gap: 28px; }
+    .notes { padding: 20px 0 0; border-left: 0; border-top: 1px solid var(--rule); }
+    .abstracts, .refs, .cv-grid, .corr-grid { grid-template-columns: 1fr; }
+    .abstract, .abstract:nth-child(even) { padding: 24px 0; border-left: 0; }
+    .abstract:nth-last-child(2) { border-bottom: 1px solid rgba(245, 240, 230, 0.18); }
+    .cv li { grid-template-columns: 1fr; gap: 2px; }
+    footer.corr { padding-top: 64px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .running { transition: none; }
+    .notes li:target, .refs li:target { animation: none; background: var(--mark); }
+  }
+  @media print {
+    @page { margin: 18mm 16mm; }
+    body { background: #fff; font-size: 11pt; }
+    .running, .mockup-tag, .feature, .toc-title, .toc, .latest { display: none; }
+    .cover { min-height: 0; padding: 0; }
+    .frame { border: 0; outline: 0; margin: 0; padding: 0; }
+    .cover-body { display: block; padding: 12pt 0; }
+    .strip, .cv-wrap { background: none; }
+    section { padding: 18pt 0; }
+    .research, footer.corr { background: none; color: var(--ink); }
+    .research .sec-head, footer.corr .sec-head { border-bottom-color: var(--ink); }
+    .research .sec-head .n, footer.corr .sec-head .n, .abstract .caps, .addr .caps { color: var(--plum); }
+    .abstract p, .abstract .kw, .corr-grid p, .addr, .colophon { color: var(--muted); }
+    .abstract .kw b, .flinks a, .email { color: var(--ink); }
+    .abstract { break-inside: avoid; }
+    .refs li, .cv li, .note { break-inside: avoid; }
+    .refs .links a[href^="https://doi.org"]::after { content: " " attr(href); font-variant: normal; letter-spacing: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="running" aria-label="Running head">
+  <div class="wrap">
+    <a class="name" href="#top">Ashley Zubkowski<span>Michaelmas Term · MMXXVI</span></a>
+    <nav aria-label="Sections">
+      <a href="#biography"><i>i.</i>biography</a>
+      <a href="#research"><i>ii.</i>research</a>
+      <a href="#publications"><i>iii.</i>publications</a>
+      <a href="#cv"><i>iv.</i>cv</a>
+      <a href="#river"><i>v.</i>river</a>
+      <a href="#correspondence"><i>vi.</i>correspondence</a>
+    </nav>
+    <a class="contents" href="#top">contents ↑</a>
+  </div>
+</header>
+
+<div class="cover" id="top">
+  <div class="frame">
+    <div class="runner caps">
+      <span>Michaelmas Term · MMXXVI</span>
+      <span class="hide-sm">Department of Physiology, Development &amp; Neuroscience</span>
+      <span>University of Cambridge</span>
+    </div>
+
+    <div class="masthead">
+      <h1>Ashley Zubkowski</h1>
+      <p>Notes on metabolism, pregnancy &amp; the placenta</p>
+    </div>
+
+    <div class="cover-body">
+      <div class="cover-left">
+        <p class="byline"><b>PhD Student</b>Sferruzzi-Perri Lab, Department of Physiology, Development &amp; Neuroscience · Hughes Hall</p>
+        <p class="toc-title caps">In this issue</p>
+        <ul class="toc">
+          <li><a href="#biography"><span class="n">i.</span><span class="t">Biography</span><span class="dots"></span><span class="pg">a note from the author</span></a></li>
+          <li><a href="#research"><span class="n">ii.</span><span class="t">Research interests</span><span class="dots"></span><span class="pg">four abstracts</span></a></li>
+          <li><a href="#publications"><span class="n">iii.</span><span class="t">Publications</span><span class="dots"></span><span class="pg">2023 – 2026</span></a></li>
+          <li><a href="#cv"><span class="n">iv.</span><span class="t">Education &amp; appointments</span><span class="dots"></span><span class="pg">Alberta, Cambridge</span></a></li>
+          <li><a href="#river"><span class="n">v.</span><span class="t">On the river</span><span class="dots"></span><span class="pg">Hughes Hall BC</span></a></li>
+          <li><a href="#correspondence"><span class="n">vi.</span><span class="t">Correspondence</span><span class="dots"></span><span class="pg">address &amp; links</span></a></li>
+        </ul>
+        <a class="latest" href="#ref-1">
+          <span class="caps">Latest first-author paper · 2025</span>
+          <span class="lt">Quantitative comparison of whole blood, plasma and serum metabolomes across different blood collection methods</span>
+          <span class="lj"><i>Metabolomics</i> 21(5): 146 · ref. 1</span>
+        </a>
+      </div>
+
+      <aside class="feature" aria-label="Cover story">
+        <div class="portrait" role="img" aria-label="Photo placeholder">AZ</div>
+        <p class="kicker caps">Cover story</p>
+        <h2>Which pathways change when pregnancy is complicated by obesity?</h2>
+        <p class="dek">My PhD pairs metabolomics with gene and protein analysis in mouse models to find out. <a href="#research">Research, ii →</a></p>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<div class="strip">
+  <div class="wrap">
+    <div class="cell"><span class="caps">Department</span><span class="v">Physiology, Development &amp; Neuroscience</span></div>
+    <div class="cell"><span class="caps">Laboratory</span><span class="v"><a href="https://www.pdn.cam.ac.uk/directory/amanda-sferruzzi-perri">Sferruzzi-Perri Lab</a></span></div>
+    <div class="cell"><span class="caps">College</span><span class="v">Hughes Hall</span></div>
+    <div class="cell"><span class="caps">Member</span><span class="v"><a href="https://www.repro.cam.ac.uk/people/ashley-zubkowski">Cambridge Reproduction</a></span></div>
+  </div>
+</div>
+
+<main>
+<section id="biography">
+  <div class="wrap">
+    <div class="sec-head"><span class="n">i.</span><h2>Biography</h2></div>
+    <div class="bio-grid">
+      <div class="bio">
+        <p>I am a PhD student in the <a href="https://www.pdn.cam.ac.uk/directory/amanda-sferruzzi-perri">Sferruzzi-Perri Lab</a><sup class="fn"><a href="#n1" id="m1">1</a></sup> in the Department of Physiology, Development &amp; Neuroscience at the University of Cambridge, and a member of <a href="https://www.repro.cam.ac.uk/people/ashley-zubkowski">Cambridge Reproduction</a> and Hughes Hall. My project asks which mechanistic pathways are altered in normal and obese pregnancies. To answer it, I combine metabolomics<sup class="fn"><a href="#n2" id="m2">2</a></sup> with gene and protein analysis in mouse models.</p>
+        <p>Before coming to Cambridge, I spent three years as a research assistant in David Wishart’s group at the University of Alberta. There I worked on quantitative metabolomics, on how blood-collection methods change what we measure,<sup class="fn"><a href="#n3" id="m3">3</a></sup> and on the DrugBank and PathBank databases.<sup class="fn"><a href="#n4" id="m4">4</a></sup> I have also reviewed what is known about homoarginine, an arginine metabolite that rises through pregnancy.<sup class="fn"><a href="#n5" id="m5">5</a></sup></p>
+        <p>I took my undergraduate degree in Honours Physiology at Alberta, where I also contributed to research on cell death in placental trophoblasts,<sup class="fn"><a href="#n6" id="m6">6</a></sup> the cells that form the interface between mother and fetus.</p>
+        <p class="sig">— A. Z.</p>
+      </div>
+      <aside aria-label="Notes">
+        <span class="notes-title caps">Notes</span>
+        <ol class="notes">
+          <li id="n1">Led by Professor Amanda Sferruzzi-Perri.</li>
+          <li id="n2">Metabolomics measures many of the small molecules (metabolites) in a tissue or fluid at once.</li>
+          <li id="n3">See <a href="#ref-1">ref. 1</a>, <i>Metabolomics</i> (2025).</li>
+          <li id="n4">See <a href="#ref-4">refs. 4</a> and <a href="#ref-5">5</a>, <i>Nucleic Acids Research</i> (2024).</li>
+          <li id="n5">See <a href="#ref-2">ref. 2</a>, <i>Acta Physiologica</i> (2025), written with Amanda Sferruzzi-Perri and David Wishart.</li>
+          <li id="n6">See <a href="#ref-6">ref. 6</a>, <i>Life Science Alliance</i> (2023).</li>
+        </ol>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="research" id="research">
+  <div class="wrap">
+    <div class="sec-head"><span class="n">ii.</span><h2>Research interests</h2><span class="aside">in four abstracts</span></div>
+    <div class="abstracts">
+      <article class="abstract">
+        <span class="caps">Current · 2024–</span>
+        <h3>Maternal obesity and placental metabolism</h3>
+        <p>Which metabolic and signalling pathways shift in obese pregnancies compared with normal ones, mapped by pairing metabolomics with gene and protein analysis in mouse models.</p>
+        <p class="kw"><b>keywords</b> metabolomics; maternal obesity; placenta; mouse models</p>
+        <span class="see muted">PhD project, in progress</span>
+      </article>
+      <article class="abstract">
+        <span class="caps">Review · 2025</span>
+        <h3>Homoarginine</h3>
+        <p>An arginine metabolite whose levels climb through pregnancy and may flag complications such as pre-eclampsia. My review sets out what is known about how it works, beyond its clinical associations.</p>
+        <p class="kw"><b>keywords</b> homoarginine; AGAT; nitric oxide; pre-eclampsia</p>
+        <a class="see" href="#ref-2">see ref. 2</a>
+      </article>
+      <article class="abstract">
+        <span class="caps">Methods · 2025</span>
+        <h3>Blood metabolomes across sampling methods</h3>
+        <p>Comparing 142 metabolites in whole blood, plasma and serum showed that inexpensive microsampling matches a venous draw when the same biofluid is compared.</p>
+        <p class="kw"><b>keywords</b> LC-MS; microsampling; biofluids</p>
+        <a class="see" href="#ref-1">see ref. 1</a>
+      </article>
+      <article class="abstract">
+        <span class="caps">Cell biology · 2023</span>
+        <h3>Trophoblast pyroptosis</h3>
+        <p>Loss of cell-polarity regulators sets off gasdermin-E-mediated pyroptosis, an inflammatory cell death, in the syncytiotrophoblast of the human placenta.</p>
+        <p class="kw"><b>keywords</b> trophoblast; gasdermin E; cell polarity</p>
+        <a class="see" href="#ref-6">see ref. 6</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="publications">
+  <div class="wrap">
+    <div class="sec-head"><span class="n">iii.</span><h2>Publications</h2><span class="aside">Full record on <a href="https://orcid.org/0000-0003-4852-8085">ORCID</a></span></div>
+    <ol class="refs">
+      <li class="refs-sub caps">Journal articles</li>
+      <li id="ref-1">
+        <span class="t">Quantitative comparison of whole blood, plasma and serum metabolomes across different blood collection methods</span>
+        <span class="me">Zubkowski A</span><span class="au">, López-Hernández Y, Rayat DY, Zheng J, Hiebert-Giesbrecht MR, Johnson M, Kovur P, Mandal R, Wishart DS.</span>
+        <span class="j">Metabolomics</span> 2025; 21(5): 146. <span class="tag">first author</span>
+        <span class="links"><a href="https://doi.org/10.1007/s11306-025-02345-w">doi</a></span>
+      </li>
+      <li id="ref-2">
+        <span class="t">Mechanisms of homoarginine: looking beyond clinical outcomes</span>
+        <span class="me">Zubkowski A</span><span class="au">, Sferruzzi-Perri AN, Wishart DS.</span>
+        <span class="j">Acta Physiologica</span> 2025; 241(2): e14273. <span class="tag">first author · review</span>
+        <span class="links"><a href="https://doi.org/10.1111/apha.14273">doi</a><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11737358/">open access</a></span>
+      </li>
+      <li id="ref-3">
+        <span class="t">The urinary metabolome of newborns with perinatal complications</span>
+        <span class="au">López-Hernández Y, Lima-Rogel V, Mandal R, Zheng J, Zhang L, Oler E, García-López DA, Torres-Calzada C, Mejía-Elizondo AR, Poelsner J, López JA, </span><span class="me">Zubkowski A</span><span class="au">, Wishart DS.</span>
+        <span class="j">Metabolites</span> 2024; 14(1): 41.
+        <span class="links"><a href="https://doi.org/10.3390/metabo14010041">doi</a><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10819924/">open access</a></span>
+      </li>
+      <li id="ref-4">
+        <span class="t">DrugBank 6.0: the DrugBank Knowledgebase for 2024</span>
+        <span class="au">Knox C, Wilson M, Klinger CM, … </span><span class="me">Zubkowski A</span><span class="au">, … Wishart DS.</span>
+        <span class="j">Nucleic Acids Research</span> 2024; 52(D1): D1265–D1275.
+        <span class="links"><a href="https://doi.org/10.1093/nar/gkad976">doi</a><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10767804/">open access</a></span>
+      </li>
+      <li id="ref-5">
+        <span class="t">PathBank 2.0: the pathway database for model organism metabolomics</span>
+        <span class="au">Wishart DS, Kruger R, Sivakumaran A, … </span><span class="me">Zubkowski A</span><span class="au">, … Oler E.</span>
+        <span class="j">Nucleic Acids Research</span> 2024; 52(D1): D654–D662.
+        <span class="links"><a href="https://doi.org/10.1093/nar/gkad1041">doi</a><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10767802/">open access</a></span>
+      </li>
+      <li id="ref-6">
+        <span class="t">Loss of polarity regulators initiates gasdermin-E-mediated pyroptosis in syncytiotrophoblasts</span>
+        <span class="au">Patel K, Nguyen J, Shaha S, Brightwell A, Duan W, </span><span class="me">Zubkowski A</span><span class="au">, Domingo IK, Riddell M.</span>
+        <span class="j">Life Science Alliance</span> 2023; 6(10): e202301946.
+        <span class="links"><a href="https://doi.org/10.26508/lsa.202301946">doi</a><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10355286/">open access</a></span>
+      </li>
+      <li class="refs-sub caps">Conference papers</li>
+      <li id="ref-7">
+        <span class="t">A portable RGB color-sensor platform for on-farm prediction of sheep pregnancy and litter size</span>
+        <span class="au">Kovur P, MacKay S, Naqvi A, Cook J, Torres-Calzada C, </span><span class="me">Zubkowski A</span><span class="au">, … Markus S, Wishart DS.</span>
+        <span class="j">Engineering Proceedings</span> 2026; 163(1): 24. Presented at ECSA-13.
+        <span class="links"><a href="https://doi.org/10.3390/engproc2026163024">doi</a></span>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="cv-wrap" id="cv">
+  <div class="wrap">
+    <div class="sec-head"><span class="n">iv.</span><h2>Education &amp; appointments</h2><span class="aside"><a href="#" title="Add CV PDF">full CV (pdf)</a></span></div>
+    <div class="cv-grid">
+      <ul class="cv">
+        <li><span class="yr">2024 – present</span><div><b>PhD, Physiology, Development &amp; Neuroscience</b><span class="w">University of Cambridge · Hughes Hall · Sferruzzi-Perri Lab</span></div></li>
+        <li><span class="yr">2021 – 2024</span><div><b>Research Assistant</b><span class="w">Wishart Lab, Department of Biological Sciences, University of Alberta</span></div></li>
+        <li><span class="yr">2020 – 2021</span><div><b>Undergraduate Researcher</b><span class="w">Department of Physiology, University of Alberta</span></div></li>
+        <li><span class="yr">2017 – 2021</span><div><b>BSc, Honours Physiology</b><span class="w">University of Alberta</span></div></li>
+      </ul>
+      <aside class="note" id="river">
+        <span class="caps">v. On the river</span>
+        <h3>Hughes Hall Boat Club</h3>
+        <svg viewBox="0 0 320 70" aria-hidden="true">
+          <g fill="none" stroke="#1F1A22" stroke-width="1.4" stroke-linecap="round">
+            <path d="M20 58 L262 14"/>
+            <path d="M20 14 L262 58"/>
+          </g>
+          <g fill="#5B2A6E" stroke="#1F1A22" stroke-width="1">
+            <path d="M258 6 Q 300 2 304 14 Q 300 26 262 22 Z"/>
+            <path d="M258 64 Q 300 68 304 56 Q 300 44 262 48 Z"/>
+          </g>
+          <g fill="#1F1A22"><rect x="14" y="54" width="14" height="7" rx="2" transform="rotate(-10 21 57)"/><rect x="14" y="10" width="14" height="7" rx="2" transform="rotate(10 21 13)"/></g>
+        </svg>
+        <p>I row for Hughes Hall and serve as the club’s Overall Captain. <a href="http://www.cucbc.org/node/104">Club page</a>.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="corr" id="correspondence">
+  <div class="wrap">
+    <div class="sec-head"><span class="n">vi.</span><h2>Correspondence</h2></div>
+    <div class="corr-grid">
+      <div>
+        <p>Letters from colleagues and prospective collaborators are always welcome.</p>
+        <a class="email" href="#correspondence"><span class="ph">crsid</span>@cam.ac.uk</a>
+      </div>
+      <div class="addr">
+        <span class="caps">Post</span>
+        Department of Physiology, Development &amp; Neuroscience<br>
+        University of Cambridge, Downing Street<br>Cambridge CB2 3EG
+        <div class="flinks">
+          <a href="https://orcid.org/0000-0003-4852-8085">orcid</a>
+          <a href="#" title="Add Google Scholar link">scholar</a>
+          <a href="https://www.linkedin.com/in/ashley-zubkowski-8a7ab6197/">linkedin</a>
+          <a href="#" title="Add CV PDF">cv (pdf)</a>
+        </div>
+      </div>
+    </div>
+    <div class="colophon"><span>© 2026 Ashley Zubkowski</span><span>Set in Cormorant Garamond and EB Garamond · <a href="#top">back to the cover</a></span></div>
+  </div>
+</footer>
+
+<a class="mockup-tag" href="../index.html">Mockup 6 · All mockups</a>
+
+<script>
+  // Running head: show it once the cover is out of view, and mark the section being read.
+  (function () {
+    const head = document.querySelector('.running');
+    new IntersectionObserver(([e]) => head.classList.toggle('show', !e.isIntersecting), { threshold: 0.02 })
+      .observe(document.querySelector('.cover'));
+    const links = [...head.querySelectorAll('nav a')];
+    const byId = Object.fromEntries(links.map(a => [a.getAttribute('href').slice(1), a]));
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (e.isIntersecting && byId[e.target.id]) {
+        links.forEach(a => a.classList.remove('on'));
+        byId[e.target.id].classList.add('on');
+      }
+    }), { rootMargin: '-35% 0px -55% 0px' });
+    document.querySelectorAll('section[id], footer[id]').forEach(s => io.observe(s));
+  })();
+</script>
+</body>
+</html>
