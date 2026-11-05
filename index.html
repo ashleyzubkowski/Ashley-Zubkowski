@@ -218,7 +218,7 @@
   .colophon { margin-top: 72px; padding-top: 18px; border-top: 1px solid rgba(245, 240, 230, 0.25); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 15px; font-style: italic; color: var(--cream-muted); }
   .colophon a { color: var(--cream-muted); }
 
-  .mockup-tag {
+  .-tag {
     position: fixed; right: 16px; bottom: 16px; z-index: 20; text-decoration: none;
     font: 13px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     background: var(--ink); color: #fff; padding: 9px 12px; border-radius: 999px;
@@ -270,7 +270,7 @@
   @media print {
     @page { margin: 18mm 16mm; }
     body { background: #fff; font-size: 11pt; }
-    .running, .mockup-tag, .feature, .toc-title, .toc, .latest { display: none; }
+    .running, .-tag, .feature, .toc-title, .toc, .latest { display: none; }
     .cover { min-height: 0; padding: 0; }
     .frame { border: 0; outline: 0; margin: 0; padding: 0; }
     .cover-body { display: block; padding: 12pt 0; }
@@ -524,7 +524,7 @@
   </div>
 </footer>
 
-<a class="mockup-tag" href="../index.html">Mockup 6 · All mockups</a>
+<a class="mockup-tag" href="../index.html">Ashley Zubkowski</a>
 
 <script>
   // Running head: show it once the cover is out of view, and mark the section being read.
